@@ -6,7 +6,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "CLIENT")
-@SequenceGenerator(name = "CLIENT_ID_SEQUENCE", initialValue = 1000)
+@SequenceGenerator(name = "CLIENT_ID_SEQUENCE", initialValue = 1000, allocationSize = 1)
 public class Client {
 
     @Id

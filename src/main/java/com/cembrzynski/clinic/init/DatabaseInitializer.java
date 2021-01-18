@@ -33,13 +33,15 @@ public class DatabaseInitializer implements ApplicationRunner {
 
     private void initDoctors() {
         doctorRepository.saveAll(List.of(
-                new Doctor("Jan", "Kowalski")
+                new Doctor("Jan", "Kowalski"),
+                new Doctor("Tomasz", "Woźniak")
         ));
     }
 
     private void initClients() {
         clientRepository.saveAll(List.of(
-            new Client("Adam", "Nowak", PinGenerator.generatePinNumber())
+            new Client("Adam", "Nowak", PinGenerator.generatePinNumber()),
+            new Client("Ola", "Makota", PinGenerator.generatePinNumber())
         ));
     }
 
