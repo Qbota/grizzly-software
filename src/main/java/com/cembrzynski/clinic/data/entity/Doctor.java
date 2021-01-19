@@ -15,8 +15,7 @@ public class Doctor {
     private String firstName;
     @Column(name = "LAST_NAME")
     private String lastName;
-    @OneToMany
-    @JoinColumn(name = "FK_DOCTOR_ID")
+    @OneToMany(mappedBy = "doctor")
     private List<Appointment> appointments;
 
     public Doctor(){

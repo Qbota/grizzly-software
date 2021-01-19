@@ -1,6 +1,9 @@
 package com.cembrzynski.clinic.data.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -11,11 +14,14 @@ public class Appointment {
     @GeneratedValue
     @Column(name = "ID")
     private Long id;
-    @Column(name = "DATE")
-    private Date date;
+    @Column(name = "DATE", unique = true)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private LocalDateTime date;
     @ManyToOne
+    @JoinColumn(name = "FK_CLIENT_ID")
     private Client client;
     @ManyToOne
+    @JoinColumn(name = "FK_DOCTOR_ID")
     private Doctor doctor;
 
     public Appointment(){
@@ -30,11 +36,11 @@ public class Appointment {
         this.id = id;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

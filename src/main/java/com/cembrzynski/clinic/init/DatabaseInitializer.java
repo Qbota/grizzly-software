@@ -4,7 +4,6 @@ import com.cembrzynski.clinic.data.entity.Client;
 import com.cembrzynski.clinic.data.entity.Doctor;
 import com.cembrzynski.clinic.data.repository.ClientRepository;
 import com.cembrzynski.clinic.data.repository.DoctorRepository;
-import com.cembrzynski.clinic.util.PinGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
@@ -40,8 +39,8 @@ public class DatabaseInitializer implements ApplicationRunner {
 
     private void initClients() {
         clientRepository.saveAll(List.of(
-            new Client("Adam", "Nowak", PinGenerator.generatePinNumber()),
-            new Client("Ola", "Makota", PinGenerator.generatePinNumber())
+            new Client("Adam", "Nowak", 1234),
+            new Client("Ola", "Makota", 2233)
         ));
     }
 

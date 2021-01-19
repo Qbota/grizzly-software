@@ -19,8 +19,7 @@ public class Client {
     private String lastName;
     @Column(name = "PIN")
     private int pin;
-    @OneToMany
-    @JoinColumn(name = "FK_CLIENT_ID")
+    @OneToMany(mappedBy = "client")
     private List<Appointment> appointments;
 
     public Client() {
