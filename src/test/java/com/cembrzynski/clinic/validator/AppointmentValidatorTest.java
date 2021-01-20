@@ -2,6 +2,7 @@ package com.cembrzynski.clinic.validator;
 
 import com.cembrzynski.clinic.data.entity.Appointment;
 import com.cembrzynski.clinic.data.entity.Client;
+import com.cembrzynski.clinic.data.entity.Doctor;
 import com.cembrzynski.clinic.data.repository.AppointmentRepository;
 import com.cembrzynski.clinic.error.exception.DuplicateEntryException;
 import com.cembrzynski.clinic.error.exception.EntityNotValidException;
@@ -37,6 +38,9 @@ class AppointmentValidatorTest {
         client.setId(1234L);
         client.setPin(1234);
         appointment.setClient(client);
+        Doctor doctor = new Doctor();
+        doctor.setId(1L);
+        appointment.setDoctor(doctor);
         return appointment;
     }
 

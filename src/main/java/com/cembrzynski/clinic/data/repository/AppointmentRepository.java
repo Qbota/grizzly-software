@@ -10,5 +10,6 @@ import java.util.Optional;
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
 
     List<Appointment> findByDoctorId(Long id);
-    Optional<Appointment> findByDate(LocalDateTime date);
+    Optional<Appointment> findByDateAndDoctorId(LocalDateTime date, Long Id);
+    Optional<Appointment> findByDateAndClientId(LocalDateTime date, Long Id);
 }

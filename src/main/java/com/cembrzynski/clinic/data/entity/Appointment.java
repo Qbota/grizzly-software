@@ -14,7 +14,7 @@ public class Appointment {
     @GeneratedValue
     @Column(name = "ID")
     private Long id;
-    @Column(name = "DATE", unique = true)
+    @Column(name = "DATE")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime date;
     @ManyToOne

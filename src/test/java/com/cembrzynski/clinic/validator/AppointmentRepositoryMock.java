@@ -29,8 +29,13 @@ public class AppointmentRepositoryMock implements AppointmentRepository {
     }
 
     @Override
-    public Optional<Appointment> findByDate(LocalDateTime date) {
+    public Optional<Appointment> findByDateAndDoctorId(LocalDateTime date, Long id) {
         return Optional.ofNullable(data);
+    }
+
+    @Override
+    public Optional<Appointment> findByDateAndClientId(LocalDateTime date, Long Id) {
+        return Optional.empty();
     }
 
     @Override

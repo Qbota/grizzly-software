@@ -22,7 +22,8 @@ public class AppointmentValidator {
 
     public void validate(Appointment appointment) throws EntityNotValidException, DuplicateEntryException {
         validateComplete(appointment);
-        validateUnique(appointment);
+        validateUniqueForDoctor(appointment);
+        validateUniqueForClient(appointment);
         validateAppointmentNotInPast(appointment);
         validateCorrectTime(appointment);
         validateTimeInOpeningHours(appointment);
@@ -50,9 +51,15 @@ public class AppointmentValidator {
         }
     }
 
-    private void validateUnique(Appointment appointment) throws DuplicateEntryException {
-        if(appointmentRepository.findByDate(appointment.getDate()).isPresent()){
+    private void validateUniqueForDoctor(Appointment appointment) throws DuplicateEntryException {
+        if(appointmentRepository.findByDateAndDoctorId(appointment.getDate(), appointment.getDoctor().getId()).isPresent()){
             throw new DuplicateEntryException("Selected date and time is already taken");
+        }
+    }
+
+    private void validateUniqueForClient(Appointment appointment) throws DuplicateEntryException {
+        if(appointmentRepository.findByDateAndClientId(appointment.getDate(), appointment.getClient().getId()).isPresent()){
+            throw new DuplicateEntryException("Client has already appointment on requested time");
         }
     }
 
