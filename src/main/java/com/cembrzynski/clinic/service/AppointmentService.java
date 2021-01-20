@@ -43,8 +43,8 @@ public class AppointmentService {
         return modelMapper.map(entityList);
     }
 
-    public void deleteAppointment(Appointment appointment){
-        //TODO check if appointment belongs to given user
+    public void deleteAppointment(Appointment appointment) throws AuthenticationException {
+        clientService.findClientByCredentials(appointment.getClient().getId(), appointment.getClient().getPin());
         appointmentRepository.delete(appointment);
     }
 

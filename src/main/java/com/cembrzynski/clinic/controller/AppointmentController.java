@@ -30,7 +30,7 @@ public class AppointmentController {
     }
 
     @DeleteMapping
-    public ResponseEntity<Object> cancelAppointment(@PathVariable Long doctorId, @RequestBody Appointment appointment){
+    public ResponseEntity<Object> cancelAppointment(@PathVariable Long doctorId, @RequestBody Appointment appointment) throws AuthenticationException {
         appointmentService.deleteAppointment(appointment);
         return ResponseEntity.ok().build();
     }

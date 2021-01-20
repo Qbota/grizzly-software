@@ -7,6 +7,7 @@ import com.cembrzynski.clinic.error.exception.EntityNotValidException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Component
@@ -22,6 +23,7 @@ public class AppointmentValidator {
     public void validate(Appointment appointment) throws EntityNotValidException, DuplicateEntryException {
         validateComplete(appointment);
         validateUnique(appointment);
+        validateAppointmentNotInPast(appointment);
         validateCorrectTime(appointment);
         validateTimeInOpeningHours(appointment);
     }
@@ -39,6 +41,12 @@ public class AppointmentValidator {
         }
         if(appointment.getClient().getId() == 0 || appointment.getClient().getPin() == 0){
             throw new EntityNotValidException("Please provide credentials");
+        }
+    }
+
+    private void validateAppointmentNotInPast(Appointment appointment) throws EntityNotValidException {
+        if(appointment.getDate().isBefore(LocalDateTime.now())){
+            throw new EntityNotValidException("Cannot create appointment in the past");
         }
     }
 
