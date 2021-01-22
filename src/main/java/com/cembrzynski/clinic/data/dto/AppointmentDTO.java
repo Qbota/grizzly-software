@@ -3,7 +3,6 @@ package com.cembrzynski.clinic.data.dto;
 import com.cembrzynski.clinic.data.entity.Appointment;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 

@@ -29,25 +29,12 @@ public class AppointmentValidator {
         validateTimeInOpeningHours(appointment);
     }
 
-    private void validateTimeInOpeningHours(Appointment appointment) throws EntityNotValidException {
-        var appointmentTime = appointment.getDate().toLocalTime();
-        if(appointmentTime.isBefore(FIRST_AVAILABLE) || appointmentTime.isAfter(LAST_AVAILABLE)){
-            throw new EntityNotValidException("Clinic cannot serve clients out of opening hours: 8:00 - 16:00");
-        }
-    }
-
     private void validateComplete(Appointment appointment) throws EntityNotValidException {
         if(appointment.getDate() == null || appointment.getClient() == null){
             throw new EntityNotValidException("Cannot handle incomplete request");
         }
         if(appointment.getClient().getId() == 0 || appointment.getClient().getPin() == 0){
             throw new EntityNotValidException("Please provide credentials");
-        }
-    }
-
-    private void validateAppointmentNotInPast(Appointment appointment) throws EntityNotValidException {
-        if(appointment.getDate().isBefore(LocalDateTime.now())){
-            throw new EntityNotValidException("Cannot create appointment in the past");
         }
     }
 
@@ -63,10 +50,23 @@ public class AppointmentValidator {
         }
     }
 
+    private void validateAppointmentNotInPast(Appointment appointment) throws EntityNotValidException {
+        if(appointment.getDate().isBefore(LocalDateTime.now())){
+            throw new EntityNotValidException("Cannot create appointment in the past");
+        }
+    }
+
     private void validateCorrectTime(Appointment appointment) throws EntityNotValidException {
         var minutes = appointment.getDate().getMinute();
         if(minutes != FULL_HOUR_MINUTES && minutes != HALF_HOUR_MINUTEST){
             throw new EntityNotValidException("Appointment can be created only every half an hour");
+        }
+    }
+
+    private void validateTimeInOpeningHours(Appointment appointment) throws EntityNotValidException {
+        var appointmentTime = appointment.getDate().toLocalTime();
+        if(appointmentTime.isBefore(FIRST_AVAILABLE) || appointmentTime.isAfter(LAST_AVAILABLE)){
+            throw new EntityNotValidException("Clinic cannot serve clients out of opening hours: 8:00 - 16:00");
         }
     }
 

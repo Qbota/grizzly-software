@@ -3,7 +3,6 @@ package com.cembrzynski.clinic.data.dto;
 import com.cembrzynski.clinic.data.entity.Doctor;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class DoctorDTO {
 

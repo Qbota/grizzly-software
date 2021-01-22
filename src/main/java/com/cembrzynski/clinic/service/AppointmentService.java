@@ -29,13 +29,25 @@ public class AppointmentService {
     private ModelMapper modelMapper;
 
     public AppointmentDTO createAppointmentForDoctor(Appointment appointment, Long doctorId) throws EntityNotValidException, AuthenticationException, EntityNotFoundException, DuplicateEntryException {
-        var doctor = doctorService.findDoctorById(doctorId);
-        appointment.setDoctor(doctor);
+        addDoctorToAppointment(appointment, doctorId);
+        addClientToAppointment(appointment);
         appointmentValidator.validate(appointment);
-        var client = clientService.findClientByCredentials(appointment.getClient().getId(), appointment.getClient().getPin());
-        appointment.setClient(client);
+        return saveInDb(appointment);
+    }
+
+    private AppointmentDTO saveInDb(Appointment appointment) throws EntityNotValidException {
         var entity = appointmentRepository.save(appointment);
         return modelMapper.map(entity);
+    }
+
+    private void addClientToAppointment(Appointment appointment) throws AuthenticationException {
+        var client = clientService.findClientByCredentials(appointment.getClient().getId(), appointment.getClient().getPin());
+        appointment.setClient(client);
+    }
+
+    private void addDoctorToAppointment(Appointment appointment, Long doctorId) throws EntityNotFoundException {
+        var doctor = doctorService.findDoctorById(doctorId);
+        appointment.setDoctor(doctor);
     }
 
     public List<AppointmentDTO> findAppointmentsForDoctor(Long id) throws EntityNotValidException{
